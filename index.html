@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="DEM Consulting: emergency management, infrastructure and capital planning, and advisory services for First Nations and remote communities in Northern Ontario.">
+<meta name="description" content="DEM Consulting: emergency management, infrastructure and capital projects, strategic planning and advisory services for First Nations, remote communities and organizations in Northern Ontario.">
 <title>DEM Consulting</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -135,6 +135,49 @@ section{padding-block:clamp(64px,9vw,112px)}
 
 footer{padding-block:28px;font-family:var(--mono);font-size:12px;color:var(--muted)}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* v2 additions */
+.sub-lede{font-size:clamp(16px,1.7vw,18px);color:var(--muted)}
+.cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.case{background:var(--bg);border:1px solid var(--line);border-top:3px solid var(--ink);padding:24px;display:grid;gap:14px;align-content:start;min-width:0}
+.case-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border:1px solid var(--line);color:var(--lake)}
+.chip.accent{border-color:var(--accent);color:var(--accent)}
+.case h3{text-transform:uppercase}
+.case dl{margin:0;display:grid;gap:12px}
+.case dl div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;border-top:1px solid var(--line);padding-top:12px}
+.case dt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.case dd{margin:0;font-size:15px}
+@media (max-width:820px){.cases{grid-template-columns:1fr}}
+@media (max-width:460px){.case dl div{grid-template-columns:1fr;gap:4px}}
+
+.agencies{display:grid;gap:14px}
+.agency-group{display:grid;grid-template-columns:180px minmax(0,1fr);gap:8px 24px;align-items:baseline}
+.agency-group p{display:flex;flex-wrap:wrap;gap:6px 0}
+@media (max-width:640px){.agency-group{grid-template-columns:1fr}}
+
+.models{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:2px solid var(--ink)}
+.model{padding:24px 24px 8px 0;display:grid;gap:12px;align-content:start}
+.model+.model{padding-left:24px;border-left:1px solid var(--line)}
+.model .eyebrow{color:var(--accent)}
+.model p:last-child{color:var(--muted);font-size:15px}
+@media (max-width:820px){.models{grid-template-columns:1fr}.model,.model+.model{padding-left:0;border-left:0}.model+.model{border-top:1px solid var(--line)}}
+
+.contact-grid{align-items:start}
+.contact .lines{margin-top:32px}
+.line a.val{color:inherit;text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--bg) 40%,transparent)}
+.line a.val:hover{border-color:var(--accent)}
+.val.plain{user-select:text;word-break:normal}
+.consult{display:grid;gap:16px;padding:24px;border:1px solid color-mix(in srgb,var(--bg) 25%,transparent);min-width:0}
+.field-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:520px){.field-row{grid-template-columns:1fr}}
+.consult label{display:grid;gap:6px;font-size:14px;color:color-mix(in srgb,var(--bg) 80%,transparent)}
+.consult input,.consult select,.consult textarea{font:inherit;font-size:16px;color:var(--bg);background:transparent;border:1px solid color-mix(in srgb,var(--bg) 35%,transparent);padding:10px 12px;border-radius:0;width:100%;min-width:0}
+.consult select option{color:var(--ink);background:var(--bg)}
+.consult input:focus,.consult select:focus,.consult textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+.consult [aria-invalid="true"]{border-color:var(--accent)}
+.consult .btn{justify-self:start}
+.form-note{font-size:13px;color:color-mix(in srgb,var(--bg) 70%,transparent)}
 </style>
 <style>body{margin:0}img{max-width:100%}</style>
 </head>
@@ -142,12 +185,13 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home"><b>DEM CONSULTING</b><span>Emergency · Infrastructure · Advisory</span></a>
+    <a class="brand" href="#home"><b>DEM CONSULTING</b><span>Emergency · Infrastructure · Strategic Advisory</span></a>
     <nav class="nav" aria-label="Main">
       <a href="#about">About</a>
-      <a href="#approach">Approach</a>
+      <a href="#experience">Experience</a>
       <a href="#services">Services</a>
-      <a class="cta" href="#contact">Contact</a>
+      <a href="#engage">Work with us</a>
+      <a class="cta" href="#contact">Request a consultation</a>
     </nav>
   </div>
 </header>
@@ -156,17 +200,18 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   <section class="hero" aria-labelledby="hero-title" style="padding:0">
     <canvas id="topo" aria-hidden="true"></canvas>
     <div class="wrap">
-      <p class="eyebrow">Emergency management &amp; capital planning for First Nations and remote communities</p>
+      <p class="eyebrow">Emergency management · Infrastructure · Strategic advisory</p>
       <h1 id="hero-title">Plans that hold when the <em>road</em> doesn't.</h1>
-      <p class="lede">DEM Consulting helps Indigenous and remote communities in Northern Ontario prepare for emergencies, plan and deliver capital projects, and secure the funding to make it happen. Practical plans, built with the community, that still work at 3 a.m. in freeze-up.</p>
+      <p class="lede">DEM Consulting provides practical emergency management, infrastructure project management, strategic planning, and organizational advisory services to First Nations, remote communities, municipalities, and organizations operating in complex environments across Northern Ontario.</p>
+      <p class="lede sub-lede">Our practice is built on senior operational leadership, capital project delivery, and community emergency management experience. We help turn complex challenges into achievable, funded, and sustainable solutions.</p>
       <div class="actions">
-        <a class="btn primary" href="#contact">Start a conversation</a>
-        <a class="btn" href="#services">See services</a>
+        <a class="btn primary" href="#contact">Request a consultation</a>
+        <a class="btn" href="#experience">See our experience</a>
       </div>
       <div class="hero-meta">
+        <span>Senior-level operational leadership</span>
+        <span>PMP-certified project delivery</span>
         <span>Fly-in, winter road &amp; road-access communities</span>
-        <span>PMP certified</span>
-        <span>Capital programs up to $15M</span>
       </div>
     </div>
   </section>
@@ -174,50 +219,91 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   <section id="about" aria-labelledby="about-title">
     <div class="wrap">
       <div class="sec-head">
-        <div><p class="eyebrow">About</p><h2 id="about-title">Show up. Listen. Deliver.</h2></div>
-        <p>Leo de Ruiter, HBSc, MDEM, PMP · Principal Consultant</p>
+        <div><p class="eyebrow">About DEM Consulting</p><h2 id="about-title">Experienced leadership. Practical solutions.</h2></div>
+        <p>A Northern Ontario consultancy for emergency management, infrastructure and capital planning, and Indigenous and remote community advisory.</p>
       </div>
       <div class="about">
         <div class="prose">
-          <p>For over ten years I have worked alongside Indigenous and remote communities on some of their most complex challenges, from building emergency management programs from scratch to managing capital infrastructure portfolios up to $15M.</p>
-          <p>I pair structured project discipline with a working knowledge of First Nations governance, federal funding programs, and the realities of delivering in remote, resource-variable environments.</p>
-          <p>The work is a partnership. Plans are shaped by the people who will use them, aligned with Chief and Council and Administration, and written to be practical, culturally appropriate, and built to last.</p>
+          <p>DEM Consulting helps Indigenous and remote communities, municipalities and organizations tackle complex challenges, from building emergency management programs from scratch to delivering capital infrastructure portfolios.</p>
+          <p>Our work is grounded in senior operational experience: overseeing capital construction, community infrastructure, housing development, public works operations and emergency preparedness, supervising staff, and working directly with Chief and Council and community leadership.</p>
+          <p>We have supported regional emergency management and interagency coordination involving Indigenous communities and federal organizations, bringing both strategic planning experience and practical operational knowledge to complex projects.</p>
+          <p>The practice is led by a PMP-certified principal with a Master's degree in Disaster and Emergency Management. We combine evidence-based planning with hands-on delivery and a clear understanding of the funding, governance and operational realities facing Northern and remote communities.</p>
+          <p>DEM Consulting exists to give communities and organizations experienced, flexible professional support without the overhead of a large consulting firm. We show up, we listen, and we deliver solutions that are practical, culturally appropriate and built to last.</p>
         </div>
         <div class="facts" role="list">
-          <div class="fact" role="listitem"><b>10+</b><span>years managing high-risk capital programs in remote and resource-constrained settings</span></div>
-          <div class="fact" role="listitem"><b>$15M</b><span>largest capital portfolio managed as owner's representative and project lead</span></div>
-          <div class="fact" role="listitem"><b>MDEM</b><span>Master's degree in Disaster and Emergency Management</span></div>
-          <div class="fact" role="listitem"><b>PMP</b><span>Project Management Professional, Project Management Institute</span></div>
+          <div class="fact" role="listitem"><b>10+</b><span>years of construction and infrastructure project management experience</span></div>
+          <div class="fact" role="listitem"><b>$15M</b><span>capital portfolios managed as project lead and owner's representative</span></div>
+          <div class="fact" role="listitem"><b>8</b><span>practice areas, from emergency management to housing and asset management</span></div>
+          <div class="fact" role="listitem"><b>PMP</b><span>certified project leadership through the Project Management Institute</span></div>
+          <div class="fact" role="listitem"><b>MDEM</b><span>Master's-level expertise in Disaster and Emergency Management</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="approach" class="cycle-band" aria-labelledby="approach-title">
+  <section id="experience" class="cycle-band" aria-labelledby="experience-title">
     <div class="wrap">
       <div class="sec-head">
-        <div><p class="eyebrow">Approach</p><h2 id="approach-title">The whole emergency management cycle</h2></div>
-        <p>Most communities don't need another binder on a shelf. They need support across every phase, from reducing risk before an event to recovering well after one.</p>
+        <div><p class="eyebrow">Selected experience</p><h2 id="experience-title">Work we've delivered</h2></div>
+        <p>Representative project experience across our practice areas. Client names are withheld unless permission has been given.</p>
       </div>
-      <div class="cycle">
-        <div class="phase">
-          <p class="eyebrow">Phase 1</p><h3>Mitigation</h3>
-          <ul><li>Hazard Identification &amp; Risk Assessment (HIRA)</li><li>Climate adaptation &amp; resilience planning</li><li>Risk-based asset prioritization</li></ul>
-        </div>
-        <div class="phase">
-          <p class="eyebrow">Phase 2</p><h3>Preparedness</h3>
-          <ul><li>Community Emergency Management Plans (CEMP)</li><li>Evacuation planning</li><li>Training, exercises &amp; simulations</li></ul>
-        </div>
-        <div class="phase">
-          <p class="eyebrow">Phase 3</p><h3>Response</h3>
-          <ul><li>Response framework development</li><li>Incident Command System (ICS) integration</li><li>Multi-agency coordination</li></ul>
-        </div>
-        <div class="phase">
-          <p class="eyebrow">Phase 4</p><h3>Recovery</h3>
-          <ul><li>After-action reviews &amp; lessons learned</li><li>Disaster Debris Management Plans (DDMP)</li><li>Business Continuity Planning (BCP)</li></ul>
-        </div>
+      <div class="cases">
+        <article class="case">
+          <div class="case-top"><span class="chip">Capital projects</span><span class="eyebrow">First Nation client</span></div>
+          <h3>Capital infrastructure &amp; construction management</h3>
+          <dl>
+            <div><dt>Challenge</dt><dd>A growing portfolio of concurrent capital projects to deliver with limited administrative capacity and tight funding timelines.</dd></div>
+            <div><dt>Role</dt><dd>Project lead and owner's representative: procurement, capital budgeting, contractor management and oversight through construction.</dd></div>
+            <div><dt>Deliverables</dt><dd>Delivery of a multi-year capital program spanning transportation infrastructure, community and public works facilities, emergency access and housing, supported by a long-term infrastructure and asset management plan.</dd></div>
+          </dl>
+        </article>
+        <article class="case">
+          <div class="case-top"><span class="chip">Emergency management</span><span class="eyebrow">First Nation client</span></div>
+          <h3>Community emergency management program</h3>
+          <dl>
+            <div><dt>Challenge</dt><dd>Building a community emergency program that works with limited road access and a small response team.</dd></div>
+            <div><dt>Role</dt><dd>Emergency management lead for planning, preparedness and coordination with outside agencies.</dd></div>
+            <div><dt>Deliverables</dt><dd>Hazard and risk assessment, emergency response and evacuation planning, emergency access analysis, and disaster recovery funding submissions.</dd></div>
+          </dl>
+        </article>
+        <article class="case">
+          <div class="case-top"><span class="chip">Advisory</span><span class="eyebrow">Regional organization</span></div>
+          <h3>Regional preparedness &amp; interagency coordination</h3>
+          <dl>
+            <div><dt>Challenge</dt><dd>Connecting coastal First Nations with the federal agencies responsible for marine safety and response.</dd></div>
+            <div><dt>Role</dt><dd>Community engagement and interagency liaison.</dd></div>
+            <div><dt>Deliverables</dt><dd>Structured community engagement and ongoing coordination with federal partners to strengthen marine awareness and regional preparedness.</dd></div>
+          </dl>
+        </article>
+        <article class="case">
+          <div class="case-top"><span class="chip">Strategy &amp; governance</span><span class="eyebrow">First Nation client</span></div>
+          <h3>Strategic planning &amp; policy development</h3>
+          <dl>
+            <div><dt>Challenge</dt><dd>Aligning department priorities, policies and capital needs with direction from Chief and Council.</dd></div>
+            <div><dt>Role</dt><dd>Planning and policy lead, including briefings to Chief and Council.</dd></div>
+            <div><dt>Deliverables</dt><dd>Multi-year departmental strategic planning, service level standards and cost-recovery frameworks, and governance-ready policy for leadership approval.</dd></div>
+          </dl>
+        </article>
+        <article class="case">
+          <div class="case-top"><span class="chip">Housing</span><span class="eyebrow">First Nation client</span></div>
+          <h3>Residential subdivision servicing plan</h3>
+          <dl>
+            <div><dt>Challenge</dt><dd>Planning servicing for new residential lots in a form that meets federal funding requirements.</dd></div>
+            <div><dt>Role</dt><dd>Responsible for the servicing plan and budget.</dd></div>
+            <div><dt>Deliverables</dt><dd>A residential servicing strategy and a funding-aligned capital budget to support a federal funding submission.</dd></div>
+          </dl>
+        </article>
+        <article class="case">
+          <div class="case-top"><span class="chip accent">Policy &amp; governance</span><span class="eyebrow">Indigenous healing organization</span></div>
+          <h3>Governance &amp; policy framework for a crisis response service</h3>
+          <dl>
+            <div><dt>Challenge</dt><dd>Establishing the governance and policy foundation for a new Indigenous-led, non-police, 24/7 mobile crisis service for youth, individuals and families.</dd></div>
+            <div><dt>Role</dt><dd>Engagement lead, awarded through a competitive RFP: discovery, policy inventory and gap analysis, framework design, key informant engagement and board preparation.</dd></div>
+            <div><dt>Deliverables</dt><dd>A policy governance framework with audit, analysis and lifecycle tools applying an anti-oppression and decolonizing lens, and a complete policy suite covering operations, client services, human resources, privacy and compliance, and risk.</dd></div>
+            <div><dt>Outcome</dt><dd>Full policy suite approved by the Board of Directors.</dd></div>
+          </dl>
+        </article>
       </div>
-      <p class="cycle-note">Recovery feeds back into mitigation. Every after-action review becomes the next risk assessment.</p>
     </div>
   </section>
 
@@ -225,55 +311,82 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     <div class="wrap">
       <div class="sec-head">
         <div><p class="eyebrow">Services</p><h2 id="services-title">Eight practice areas</h2></div>
-        <p>Engage DEM Consulting for a single deliverable or as an ongoing advisor across a portfolio. Every engagement is scoped to what your community needs and can sustain.</p>
+        <p>Specialized consulting for First Nations, remote communities, municipalities, and organizations operating in complex environments. Engage us for a single deliverable or ongoing support across a portfolio.</p>
       </div>
 
       <div class="index">
         <article class="row">
-          <p class="code">EM</p>
-          <div><h3>Emergency &amp; Disaster Management</h3><p class="blurb">Programs, plans and exercises that get a community ready and keep it running.</p></div>
-          <ul class="tags"><li>CEMP</li><li>HIRA</li><li>Evacuation planning</li><li>After-action reviews</li><li>Response frameworks</li><li>ICS integration</li><li>Training &amp; exercises</li><li>Business Continuity Planning</li><li>Debris Management Planning</li><li>Climate adaptation &amp; resilience</li></ul>
-        </article>
-        <article class="row">
-          <p class="code">PM</p>
+          <p class="code">01</p>
           <div><h3>Project Management</h3><p class="blurb">PMP-led delivery from feasibility to handover, with budget and risk kept in view.</p></div>
-          <ul class="tags"><li>Capital portfolios up to $15M</li><li>Feasibility studies &amp; business cases</li><li>ISC-compliant project charters</li><li>Procurement strategy &amp; RFPs</li><li>Contractor evaluation</li><li>Owner's representative</li><li>Multi-project scheduling</li><li>Budget &amp; cost control</li><li>Construction coordination</li><li>Risk mitigation planning</li></ul>
+          <ul class="tags"><li>PMP-certified project leadership</li><li>Capital portfolio management (projects up to $15M)</li><li>Feasibility studies &amp; business case development</li><li>ISC-compliant project charters</li><li>Procurement strategy &amp; RFP development</li><li>Contractor management &amp; evaluation frameworks</li><li>Owner's representative / project oversight</li><li>Multi-project coordination &amp; scheduling</li><li>Budget oversight &amp; cost control</li><li>Construction coordination &amp; site management</li><li>Risk identification &amp; mitigation planning</li><li>Stakeholder &amp; multi-agency engagement</li></ul>
         </article>
         <article class="row">
-          <p class="code">IC</p>
-          <div><h3>Infrastructure &amp; Capital Planning</h3><p class="blurb">Deciding what to build, in what order, and how to pay for it.</p></div>
-          <ul class="tags"><li>Capital planning &amp; prioritization</li><li>Roads, bridges &amp; community infrastructure feasibility</li><li>Lifecycle planning</li><li>Owner's representative</li><li>Procurement &amp; RFPs</li><li>Construction coordination</li></ul>
+          <p class="code">02</p>
+          <div><h3>Emergency &amp; Disaster Management</h3><p class="blurb">Programs, plans and exercises that get a community ready and keep it running.</p></div>
+          <ul class="tags"><li>Community Emergency Management Plans (CEMP)</li><li>Hazard Identification &amp; Risk Assessments (HIRA)</li><li>Evacuation planning</li><li>Community Wildfire Protection Planning (CWPP)</li><li>After-action reviews &amp; lessons learned reports</li><li>Emergency response framework development</li><li>Incident Command System (ICS) integration</li><li>Training, exercises &amp; simulation design</li><li>Business Continuity Planning (BCP)</li><li>Disaster Debris Management Planning (DDMP)</li><li>Climate change adaptation &amp; resilience planning</li></ul>
         </article>
         <article class="row">
-          <p class="code">AM</p>
+          <p class="code">03</p>
+          <div><h3>Infrastructure &amp; Capital Planning</h3><p class="blurb">Deciding what to build, in what order, and how to deliver it.</p></div>
+          <ul class="tags"><li>Capital project planning &amp; prioritization</li><li>Feasibility studies (roads, bridges, community infrastructure)</li><li>Project charters &amp; business cases (ISC-compliant)</li><li>Infrastructure lifecycle planning</li><li>Owner's representative / project oversight</li><li>Procurement strategy &amp; RFP development</li><li>Construction coordination</li><li>Contractor evaluation frameworks</li></ul>
+        </article>
+        <article class="row">
+          <p class="code">04</p>
           <div><h3>Asset Management</h3><p class="blurb">Know what you own, what condition it's in, and when it needs replacing.</p></div>
-          <ul class="tags"><li>Full Asset Management Plans</li><li>Asset inventory &amp; data structuring</li><li>Lifecycle costing</li><li>Replacement forecasting</li><li>Level of Service (LOS)</li><li>GIS-linked asset mapping</li><li>Governance frameworks</li><li>Federal compliance alignment</li></ul>
+          <ul class="tags"><li>Full Asset Management Plans (AMP)</li><li>Asset inventory development &amp; data structuring</li><li>Lifecycle costing &amp; replacement forecasting</li><li>Risk-based asset prioritization</li><li>Level of Service (LOS) development</li><li>GIS-linked asset mapping</li><li>Governance frameworks for asset management systems</li><li>Federal compliance alignment</li></ul>
         </article>
         <article class="row">
-          <p class="code">SG</p>
-          <div><h3>Strategic Planning &amp; Governance</h3><p class="blurb">Plans and policies that Chief and Council and Administration can act on together.</p></div>
-          <ul class="tags"><li>Comprehensive Community Planning</li><li>Departmental strategic plans</li><li>Governance alignment</li><li>Infrastructure, EM &amp; housing policy</li><li>BCR development &amp; advisory</li><li>Funding strategy</li><li>Long-term capital planning</li></ul>
+          <p class="code">05</p>
+          <div><h3>Strategic Planning &amp; Governance</h3><p class="blurb">Plans and policies that leadership and administration can act on together.</p></div>
+          <ul class="tags"><li>Comprehensive Community Planning (CCP) support</li><li>Departmental &amp; organizational strategic plans</li><li>Governance structure alignment (Chief &amp; Council + Administration)</li><li>Policy development (infrastructure, emergency management, housing)</li><li>Band Council Resolution (BCR) development &amp; advisory</li><li>Funding strategy &amp; long-term capital planning</li></ul>
         </article>
         <article class="row">
-          <p class="code">HC</p>
+          <p class="code">06</p>
           <div><h3>Housing &amp; Community Development</h3><p class="blurb">From housing strategy to serviced lots and new community facilities.</p></div>
-          <ul class="tags"><li>Housing strategy incl. rent-to-own</li><li>Program &amp; policy design</li><li>ISC, CMHC, FedNor &amp; provincial applications</li><li>EA screening support</li><li>Subdivision &amp; servicing planning</li><li>Microsubdivisions</li><li>Education &amp; wellness centre planning</li></ul>
+          <ul class="tags"><li>Housing strategy development (incl. rent-to-own models)</li><li>Program design &amp; policy development</li><li>Funding applications (ISC, CMHC, FedNor, provincial)</li><li>Environmental Assessment (EA) screening support</li><li>Subdivision &amp; servicing planning (incl. microsubdivisions)</li><li>Community facility planning (education &amp; wellness centres)</li></ul>
         </article>
         <article class="row">
-          <p class="code">OS</p>
-          <div><h3>Operations &amp; Service Delivery</h3><p class="blurb">Finding the gaps in how services are delivered and closing them.</p></div>
-          <ul class="tags"><li>Service delivery reviews</li><li>Gap analyses</li><li>Organizational assessments</li><li>SOPs &amp; operational frameworks</li><li>Public Works optimization</li><li>Risk &amp; liability frameworks for remote operations</li></ul>
+          <p class="code">07</p>
+          <div><h3>Operational &amp; Service Delivery Improvement</h3><p class="blurb">Finding the gaps in how services are delivered and closing them.</p></div>
+          <ul class="tags"><li>Service delivery reviews &amp; gap analyses</li><li>Organizational assessments</li><li>SOP &amp; operational framework development</li><li>Public Works &amp; infrastructure operations optimization</li><li>Risk &amp; liability frameworks for remote operations</li></ul>
         </article>
         <article class="row">
-          <p class="code">IR</p>
-          <div><h3>Indigenous &amp; Remote Advisory</h3><p class="blurb">Navigating federal programs and agencies with the community's priorities at the centre.</p></div>
-          <ul class="tags"><li>First Nations governance alignment</li><li>Federal program navigation</li><li>Stakeholder engagement &amp; facilitation</li><li>Multi-agency coordination</li><li>Community-based planning</li></ul>
+          <p class="code">08</p>
+          <div><h3>Indigenous &amp; Remote Community Advisory</h3><p class="blurb">Navigating programs and agencies with the community's priorities at the centre.</p></div>
+          <ul class="tags"><li>First Nations governance &amp; program delivery alignment</li><li>Stakeholder engagement &amp; facilitation</li><li>Federal program navigation (ISC, CMHC, FedNor)</li><li>Multi-agency coordination (Coast Guard, EMO, ECCC, DFO, Transport Canada)</li><li>Community-based planning grounded in local context</li></ul>
         </article>
       </div>
 
       <div class="agencies">
-        <p class="eyebrow label">Programs and agencies we work with</p>
-        <span class="a">ISC</span><span class="a">CMHC</span><span class="a">FedNor</span><span class="a">Emergency Management Ontario</span><span class="a">Canadian Coast Guard</span><span class="a">ECCC</span><span class="a">DFO</span><span class="a">Transport Canada</span>
+        <p class="eyebrow label">Experience navigating programs and working with government agencies</p>
+        <div class="agency-group"><span class="eyebrow">Funding programs</span><p><span class="a">ISC</span><span class="a">CMHC</span><span class="a">FedNor</span><span class="a">Provincial programs</span></p></div>
+        <div class="agency-group"><span class="eyebrow">Agency coordination</span><p><span class="a">Emergency Management Ontario</span><span class="a">Canadian Coast Guard</span><span class="a">DFO</span><span class="a">Transport Canada</span><span class="a">ECCC</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="engage" class="cycle-band" aria-labelledby="engage-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow">Work with us</p><h2 id="engage-title">Three ways to engage</h2></div>
+        <p>Senior support sized to what you need. Particularly useful for communities with limited administrative capacity, or organizations that need experienced help without hiring a full-time position.</p>
+      </div>
+      <div class="models">
+        <article class="model">
+          <p class="eyebrow">Fixed scope</p>
+          <h3>Defined projects</h3>
+          <p>A single deliverable with a set scope, timeline and fee. For example a CEMP update, a HIRA, a feasibility study, or a funding application.</p>
+        </article>
+        <article class="model">
+          <p class="eyebrow">Retainer</p>
+          <h3>Ongoing advisory</h3>
+          <p>A monthly block of hours for continuing advice across emergency management, capital planning and governance, so help is there when issues come up.</p>
+        </article>
+        <article class="model">
+          <p class="eyebrow">Embedded</p>
+          <h3>Interim &amp; project leadership</h3>
+          <p>Hands-on project management, owner's representation, or interim department leadership for a build, a vacancy, or a period of change.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -284,21 +397,46 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
         <div>
           <p class="eyebrow">Contact</p>
           <h2 id="contact-title" style="margin-top:12px">Let's talk before the <em>next season.</em></h2>
-          <p class="sub">Whether you need a CEMP update, a funding application, or an owner's representative for a capital build, reach out to set up a first conversation at no cost.</p>
-        </div>
-        <div class="lines">
-          <div class="line">
-            <div class="who"><span class="eyebrow">Principal Consultant</span><span class="val" style="user-select:text;word-break:normal">Leo de Ruiter, HBSc, MDEM, PMP</span></div>
-          </div>
-          <div class="line">
-            <div class="who"><span class="eyebrow">Email</span><span class="val" id="email">demconsultingsolutions@gmail.com</span></div>
-            <button class="copy" type="button" id="copy-email" data-target="email">Copy</button>
-          </div>
-          <div class="line">
-            <div class="who"><span class="eyebrow">Phone</span><span class="val" id="phone">647-402-9428</span></div>
-            <button class="copy" type="button" id="copy-phone" data-target="phone">Copy</button>
+          <p class="sub">Tell us a little about your community or organization and what you're working on. The first conversation is at no cost.</p>
+          <div class="lines">
+            <div class="line">
+              <div class="who"><span class="eyebrow">Email</span><a class="val" id="email" href="mailto:demconsultingsolutions@gmail.com">demconsultingsolutions@gmail.com</a></div>
+              <button class="copy" type="button" id="copy-email" data-target="email">Copy</button>
+            </div>
+            <div class="line">
+              <div class="who"><span class="eyebrow">Phone</span><a class="val" id="phone" href="tel:+16474029428">647-402-9428</a></div>
+              <button class="copy" type="button" id="copy-phone" data-target="phone">Copy</button>
+            </div>
           </div>
         </div>
+
+        <form class="consult" id="consult-form" novalidate>
+          <p class="eyebrow">Request a consultation</p>
+          <div class="field-row">
+            <label for="f-name">Name<input id="f-name" name="name" type="text" autocomplete="name" required></label>
+            <label for="f-org">Community or organization<input id="f-org" name="org" type="text" autocomplete="organization"></label>
+          </div>
+          <div class="field-row">
+            <label for="f-email">Email<input id="f-email" name="email" type="email" autocomplete="email" required></label>
+            <label for="f-phone">Phone (optional)<input id="f-phone" name="phone" type="tel" autocomplete="tel"></label>
+          </div>
+          <label for="f-area">Area of interest
+            <select id="f-area" name="area">
+              <option>Project Management</option>
+              <option>Emergency &amp; Disaster Management</option>
+              <option>Infrastructure &amp; Capital Planning</option>
+              <option>Asset Management</option>
+              <option>Strategic Planning &amp; Governance</option>
+              <option>Housing &amp; Community Development</option>
+              <option>Operational &amp; Service Delivery Improvement</option>
+              <option>Indigenous &amp; Remote Community Advisory</option>
+              <option>Not sure yet</option>
+            </select>
+          </label>
+          <label for="f-msg">What are you working on?<textarea id="f-msg" name="message" rows="4" required></textarea></label>
+          <button class="btn primary" type="submit">Prepare my request</button>
+          <p class="form-note" id="form-note" role="status">This opens your email app with your request filled in, ready to send.</p>
+        </form>
       </div>
     </div>
   </section>
@@ -387,6 +525,31 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   draw();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+})();
+</script>
+
+<script>
+(function(){
+  var f = document.getElementById('consult-form'); if(!f) return;
+  var note = document.getElementById('form-note');
+  f.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var ok = true;
+    ['f-name','f-email','f-msg'].forEach(function(id){
+      var el = document.getElementById(id);
+      var bad = !el.value.trim() || (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()));
+      el.setAttribute('aria-invalid', bad ? 'true' : 'false');
+      if (bad) ok = false;
+    });
+    if (!ok){ note.textContent = 'Please add your name, a valid email address, and a short description of what you are working on.'; return; }
+    var v = function(id){ return document.getElementById(id).value.trim(); };
+    var org = v('f-org');
+    var subject = 'Consultation request' + (org ? ': ' + org : '');
+    var body = 'Name: ' + v('f-name') + '\nOrganization: ' + (org || '-') + '\nEmail: ' + v('f-email') + '\nPhone: ' + (v('f-phone') || '-') + '\nArea of interest: ' + v('f-area') + '\n\n' + v('f-msg');
+    var to = document.getElementById('email').textContent.trim();
+    window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    note.textContent = 'Your email app should open with the request filled in. If it does not, email ' + to + ' directly.';
+  });
 })();
 </script>
 
