@@ -178,6 +178,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 .consult [aria-invalid="true"]{border-color:var(--accent)}
 .consult .btn{justify-self:start}
 .form-note{font-size:13px;color:color-mix(in srgb,var(--bg) 70%,transparent)}
+
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.consult{position:relative}
+.sent-title{text-transform:uppercase;font-size:clamp(32px,4vw,44px)}
+.btn:disabled{opacity:.6;cursor:wait}
 </style>
 <style>body{margin:0}img{max-width:100%}</style>
 </head>
@@ -434,8 +439,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
             </select>
           </label>
           <label for="f-msg">What are you working on?<textarea id="f-msg" name="message" rows="4" required></textarea></label>
-          <button class="btn primary" type="submit">Prepare my request</button>
-          <p class="form-note" id="form-note" role="status">This opens your email app with your request filled in, ready to send.</p>
+          <label class="hp" for="f-bot" aria-hidden="true">Leave this unchecked<input id="f-bot" type="checkbox" name="botcheck" tabindex="-1"></label>
+          <button class="btn primary" type="submit">Send request</button>
+          <p class="form-note" id="form-note" role="status">We reply within two business days.</p>
         </form>
       </div>
     </div>
@@ -530,10 +536,16 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
 <script>
 (function(){
+  // Paste your Web3Forms access key here (from web3forms.com, sent to your email).
+  var ACCESS_KEY = "d6127f9f-7fec-4ba0-91c2-d3a1abafaac2";
+
   var f = document.getElementById('consult-form'); if(!f) return;
   var note = document.getElementById('form-note');
-  f.addEventListener('submit', function(ev){
-    ev.preventDefault();
+  var btn = f.querySelector('button[type="submit"]');
+  var v = function(id){ return document.getElementById(id).value.trim(); };
+  var to = function(){ return document.getElementById('email').textContent.trim(); };
+
+  function valid(){
     var ok = true;
     ['f-name','f-email','f-msg'].forEach(function(id){
       var el = document.getElementById(id);
@@ -541,14 +553,42 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       el.setAttribute('aria-invalid', bad ? 'true' : 'false');
       if (bad) ok = false;
     });
-    if (!ok){ note.textContent = 'Please add your name, a valid email address, and a short description of what you are working on.'; return; }
-    var v = function(id){ return document.getElementById(id).value.trim(); };
+    return ok;
+  }
+  function mailtoFallback(subject, body){
+    window.location.href = 'mailto:' + to() + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  }
+
+  f.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    if (document.getElementById('f-bot').checked) return;
+    if (!valid()){ note.textContent = 'Please add your name, a valid email address, and a short description of what you are working on.'; return; }
     var org = v('f-org');
     var subject = 'Consultation request' + (org ? ': ' + org : '');
     var body = 'Name: ' + v('f-name') + '\nOrganization: ' + (org || '-') + '\nEmail: ' + v('f-email') + '\nPhone: ' + (v('f-phone') || '-') + '\nArea of interest: ' + v('f-area') + '\n\n' + v('f-msg');
-    var to = document.getElementById('email').textContent.trim();
-    window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    note.textContent = 'Your email app should open with the request filled in. If it does not, email ' + to + ' directly.';
+
+    if (!ACCESS_KEY || ACCESS_KEY.indexOf('YOUR_') === 0){ mailtoFallback(subject, body); note.textContent = 'Your email app should open with the request filled in. If it does not, email ' + to() + ' directly.'; return; }
+
+    btn.disabled = true; btn.textContent = 'Sending...'; note.textContent = '';
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: ACCESS_KEY,
+        subject: subject,
+        from_name: 'DEM Consulting website',
+        name: v('f-name'), email: v('f-email'), replyto: v('f-email'),
+        organization: org || '-', phone: v('f-phone') || '-',
+        area_of_interest: v('f-area'), message: v('f-msg')
+      })
+    }).then(function(r){ return r.json(); }).then(function(res){
+      if (res && res.success){
+        f.innerHTML = '<p class="eyebrow">Request received</p><h3 class="sent-title">Thank you, ' + v.call(null,'f-name').replace(/[<>&"]/g,'') + '.</h3><p class="form-note">We will reply within two business days. For anything urgent, call 647-402-9428.</p>';
+      } else { throw new Error(res && res.message); }
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = 'Send request';
+      note.textContent = 'Your request could not be sent. Please try again, or email ' + to() + ' directly.';
+    });
   });
 })();
 </script>
